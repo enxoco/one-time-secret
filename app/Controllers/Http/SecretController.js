@@ -11,7 +11,7 @@ class SecretController {
         const id = await hashids.encode(Math.round((new Date()).getTime() / 1000))
         const secMesg = Encryption.encrypt(secret)
         await Redis.set(id, secMesg)
-        session.flash({ success: `${host}/secret/${id}` })
+        session.flash({ success: `${host}/l/${id}` })
         return response.redirect('back')
     }
 
