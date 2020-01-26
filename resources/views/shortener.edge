@@ -28,7 +28,7 @@
       </p>
       <div class="my-5"></div>
         @if(flashMessage('linkUrl'))
-      <p>Your secure link is: {{ flashMessage('linkUrl') }}</p>
+      <p><strong>Your short link is: {{ flashMessage('linkUrl') }}<strong></p>
       @endif
       <form action="/s" method="POST">
         {{ csrfField() }}
