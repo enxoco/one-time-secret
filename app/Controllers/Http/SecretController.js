@@ -6,7 +6,6 @@ const Redis = use('Redis')
 
 class SecretController {
     async PostSecret({ request, response, session }) {
-
         const host = request.headers().origin
         const { secret } = request.all()
         const id = await hashids.encode(Math.round((new Date()).getTime() / 1000))

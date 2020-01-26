@@ -4,7 +4,6 @@ const Redis = use('Redis')
 class ConvertEmptyStringsToNull {
   async handle ({ request }, next) {
     let hits = await Redis.get("hits")
-    console.log(hits)
     if (hits) {
       Number(hits++)
       Redis.set("hits", hits)
