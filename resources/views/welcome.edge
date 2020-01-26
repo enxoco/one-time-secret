@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>One Time Secret</title>
+  {{ style('style') }}
+</head>
+<body>
+  <div class="my-5"></div>
+  <section>
+    <h1>One Time Secret</h1>
+    <div class="my-5"></div>
+    @inlineSvg('undraw_share_link_qtxe')
+    <div class="my-5"></div>
+
+    <h2>Enter your secret message below and click submit</h2>
+
+    <div class="subtitle">
+      <p>
+        We will generate a self destructing link for you.<br/>  Please note that the link can only be viewed once.
+      </p>
+      <div class="my-5"></div>
+
+        <form method="POST" action="secret">
+          {{ csrfField() }}
+          <textarea class="form-control" name="secret" placeholder="Enter your secret here..."></textarea>
+          <br/>
+          <button type="submit" class="btn-submit" value="submit">Submit</button>
+        </form>
+        @if(flashMessage('success'))
+          <p>Your one time link is: <strong>{{ flashMessage('success') }}</strong></p>
+        @endif
+        <div class="my-5"></div>
+        <p><small>Your secret message is encrypted and stored in memory on my server.<br />  Once your message is read it is erased from memory and gone forever.  <br />Don't believe me?  You should'nt.  Check the <strong><a href="https://github.com/enxoco/one-time-secret">source code</a></strong>.<br/>In addition I don't store or collect any personal or identifyable information.<br>I only keep a record of the number of times the service has been used.<br />Copyright 2020 <a href="https://liveinaterminal.com">Mike Conrad</a></small></p>
+    </div>
+  </section>
+</body>
+</html>
