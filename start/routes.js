@@ -16,6 +16,14 @@
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use('Route')
 
-Route.post('/secret', 'SecretController.PostSecret')
-Route.get('/secret/:secret', 'SecretController.GetSecret')
+// L for one time secret routes
+Route.get('/l/:id', 'SecretController.GetSecret')
+Route.post('/l', 'SecretController.PostSecret')
+// S for link shortener routes
+Route.get('/s/:id', 'UrlController.GetShort')
+Route.post('/s', 'UrlController.PostShort')
+Route.on('/s').render('shortener')
+
+// Wildcard route for everything else.
 Route.on('/').render('welcome')
+Route.on('/:url').render('welcome')

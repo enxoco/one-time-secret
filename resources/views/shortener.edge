@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Link Shortener</title>
+  {{ style('style') }}
+</head>
+<body>
+  <div class="my-5"></div>
+  <section>
+      @if(error)
+        <h1>{{ error }}</h1><br>
+      @else
+        <h1>Link Shortener</h1>
+      @endif
+      <br>
+      <p>Check out my other tool, a simple/free <a href="/l">Self destructing link generator</a></p>
+      <div class="my-5"></div>
+        @inlineSvg('undraw_share_link_qtxe')
+      <div class="my-5"></div>
+
+      <h2>Enter the url you want shortened</h2>
+      
+      <div class="subtitle">
+
+      <p>
+        This link will disappear after 24 hours.
+      </p>
+      <div class="my-5"></div>
+        @if(flashMessage('linkUrl'))
+      <p>Your secure link is: {{ flashMessage('linkUrl') }}</p>
+      @endif
+      <form action="/s" method="POST">
+        {{ csrfField() }}
+        <input type="url" name="short" placeholder="Enter your url"/>
+        <div class="my-5"></div>  
+        <button class="btn-submit" type="submit" value="submit">Submit</button>
+      </form>
+      <div class="my-5"></div>
+      <p><small>Your link is stored in memory on my server for 24 hours and then erased.<br> <strong>No</strong> personal information is collected or stored.  <br />Don't believe me?  You should'nt.  Check the <strong><a href="https://github.com/enxoco/one-time-secret">source code</a></strong>.<br>I only keep a record of the number of times the service has been used.<br>Copyright 2020 <a href="https://liveinaterminal.com">Mike Conrad</a></small></p>
+    </div>
+  </section>
+</body>
+</html>

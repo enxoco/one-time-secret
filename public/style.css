@@ -21,7 +21,7 @@ p {
   padding: 0;
 }
 
-section {
+section, nav {
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -31,8 +31,15 @@ section {
   margin: auto;
   position: relative;
 }
-
-section:before {
+nav {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  max-width: 90%;
+  margin: auto;
+  position: relative;
+}
+section:before, nav:before {
   content: "";
   position: absolute;
   background-size: 100%;
@@ -105,6 +112,10 @@ h1 {
 
 textarea {
   min-height: 200px;
+
+}
+
+input, textarea {
   width: 100%;
   background: white;
   font-family: 'Montserrat', sans-serif;
