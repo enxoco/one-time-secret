@@ -16,7 +16,7 @@ class SecretController {
     }
 
     async GetSecret({ view, params }) {
-        const id = params.secret
+        const id = params.id
         // Get our secret message
         let mesg = await Redis.get(id)
         // Immediately delete our secret  message
