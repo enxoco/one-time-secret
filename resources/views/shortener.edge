@@ -5,7 +5,7 @@
   <title>Link Shortener</title>
   {{ style('style') }}
 </head>
-<body>
+<body class="bg-green">
   <div class="my-5"></div>
   <section>
       @if(error)
@@ -34,6 +34,7 @@
         {{ csrfField() }}
         <input type="url" name="short" placeholder="Enter your url"/>
         <div class="my-5"></div>  
+        <input type="hidden" name="tool" value="shortener" />
         <button class="btn-submit" type="submit" value="submit">Submit</button>
       </form>
       <div class="my-5"></div>

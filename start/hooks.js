@@ -9,4 +9,5 @@ hooks.after.providersBooted(() => {
 
     return this.safe(`${secret}`)
   })
+
 })

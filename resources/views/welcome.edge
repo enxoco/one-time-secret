@@ -5,15 +5,14 @@
   <title>One Time Secret</title>
   {{ style('style') }}
 </head>
-<body>
-    
+<body class="bg-red">
   <div class="my-5"></div>
   <section>
-    <h1>One Time Secret</h1>
+    <h1>Self Destructing Message</h1>
     <br>
     <p>Check out my other tool, a simple/free <a href="/s">Link Shortener</a></p>
     <div class="my-5"></div>
-    @inlineSvg('undraw_share_link_qtxe')
+    @inlineSvg('undraw_throw_away_ldjd')
     <div class="my-5"></div>
 
     <h2>Enter your secret message below and click submit</h2>
@@ -28,6 +27,7 @@
           {{ csrfField() }}
           <textarea class="form-control" name="secret" placeholder="Enter your secret here..."></textarea>
           <br/>
+          <input type="hidden" name="tool" value="secrets" />
           <button type="submit" class="btn-submit" value="submit">Submit</button>
         </form>
         @if(flashMessage('success'))

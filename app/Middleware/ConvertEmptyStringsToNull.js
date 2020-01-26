@@ -3,7 +3,18 @@ const Redis = use('Redis')
 
 class ConvertEmptyStringsToNull {
   async handle ({ request }, next) {
+    const { tool } = request.all()
     let hits = await Redis.get("hits")
+    if(tool){
+      let toolHits = await Redis.get(tool)
+      if(toolHits){
+        Number(toolHits++)
+        Redis.set(tool, toolHits)
+        request.secrets = toolHits
+      } else {
+        Redis.set(tool, 1)
+      }
+    }
     if (hits) {
       Number(hits++)
       Redis.set("hits", hits)
