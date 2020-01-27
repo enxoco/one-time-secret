@@ -1,13 +1,13 @@
 'use strict'
 const Redis = use('Redis')
 const Hashids = require('hashids/cjs')
-const hashids = new Hashids()
+const hashids = new Hashids("one-time-secret", 2, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890");
 class UrlController {
 
     async PostShort({ request, response, session }) {
         const { short } = request.all()
-        const id = Date.now()
-        const urlStr = hashids.encode(id)
+        const id = await Redis.get('hits')
+        const urlStr = hashids.encode(Number(id))
         const status = await Redis.set(urlStr, short)
         const host = request.headers().origin
         session.flash({ linkUrl: `${host}/s/${urlStr}` })
