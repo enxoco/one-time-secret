@@ -16,5 +16,7 @@ That's it as long as you have redis installed already.
 
 ### Requirements
 
-Redis
+- Redis
 
+## Demo
+Check it out at https://nxone.co/l
