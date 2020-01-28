@@ -24,7 +24,7 @@ section, nav {
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
   max-width: 70%;
   margin: auto;
@@ -47,33 +47,15 @@ section:before, nav:before {
   z-index: -1;
 }
 
-.logo {
-  background: url("/logo.svg") no-repeat;
-  width: 36px;
-  height: 33px;
-  background-size: 100%;
-  margin-bottom: 35px;
-  opacity: 0;
-  animation: slideUp 1s cubic-bezier(0.19, 1, 0.30, 1) 1.3s forwards;
-}
 
-.title {
-  background: url("/title.svg") no-repeat;
-  width: 219px;
-  height: 36px;
-  background-size: 100%;
-  opacity: 0;
-  animation: slideUp 1s cubic-bezier(0.19, 1, 0.30, 1) 0.2s forwards;
-}
 
 .subtitle {
   margin-top: 25px;
-  color: #BDB3CB;
   font-size: 17px;
   text-align: center;
   letter-spacing: 0.5;
-  opacity: 0;
-  animation: slideUp 1s cubic-bezier(0.19, 1, 0.30, 1) 0.5s forwards;
+  opacity: 1;
+  /* animation: slideUp 1s cubic-bezier(0.19, 1, 0.30, 1) 0.5s forwards; */
 }
 
 
@@ -123,14 +105,19 @@ input, textarea {
   padding: 10px;
   font-size: 20px;
 }
+input {
+  width: 100%;
+  margin-left: 50px;
+}
 
 .btn-submit {
-  background: white;
-  color: black;
+  background: #2ecc71;
+  color:white;
   padding: 10px 20px;
   border-radius: 10px;
   border: 0px;
-  width: 325px;
+  width: 100%;
+  font-size: 30px;
 }
 
 .bg-red {
@@ -139,3 +126,25 @@ input, textarea {
 .bg-green {
   background-color: #2ecc71;
 }
+.captcha {
+  display: flex;
+  flex-direction: row;
+  margin-top: 30px;
+  justify-content: space-evenly;
+}
+
+.hero {
+  max-height: 300px;
+}
+.mt-5 {
+  margin-top: 5rem !important;
+}
+.text-yellow {
+  color: #f1c40f;
+}
+/* .footer {
+  position: fixed;
+  bottom: 0px;
+  margin-left: auto;
+  margin-right: auto;
+} */
