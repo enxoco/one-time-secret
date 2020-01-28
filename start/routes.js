@@ -19,11 +19,13 @@ const Route = use('Route')
 // L for one time secret routes
 Route.get('/l/:id', 'SecretController.GetSecret')
 Route.post('/l', 'SecretController.PostSecret')
+Route.get('/l', 'SecretController.GetForm')
+Route.get('/captcha/:ts', 'SecretController.GetCaptcha')
 // S for link shortener routes
 Route.get('/s/:id', 'UrlController.GetShort')
 Route.post('/s', 'UrlController.PostShort')
 Route.on('/s').render('shortener')
 
 // Wildcard route for everything else.
-Route.on('/').render('welcome')
-Route.on('/:url').render('welcome')
+Route.get('/', 'SecretController.GetForm')
+Route.get('/:url', 'SecretController.GetForm')

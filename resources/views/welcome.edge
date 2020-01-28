@@ -5,19 +5,20 @@
   <title>One Time Secret</title>
   {{ style('style') }}
 </head>
-<body class="bg-red">
-  <div class="my-5"></div>
+<body class="bg-red" style="background-image:url('undraw_throw_away_ldjd.svg'); background-size: cover; background-repeat: no-repeat;">
   <section>
+    <div class="header">
     <h1>Self Destructing Message</h1>
     <br>
     <p>Check out my other tool, a simple/free <a href="/s">Link Shortener</a></p>
-    <div class="my-5"></div>
-    @inlineSvg('undraw_throw_away_ldjd')
-    <div class="my-5"></div>
-
-    <h2>Enter your secret message below and click submit</h2>
+    </div>
+      @if(flashMessage('success'))
+        <h1 style="text-align:center;">Your one time link is: <br><strong>{{ flashMessage('success') }}</strong></h1>
+      @else
 
     <div class="subtitle">
+      <h2>Enter your secret message below and click submit</h2>
+
       <p>
         We will generate a self destructing link for you.<br/>  Please note that the link can only be viewed once.
       </p>
@@ -25,17 +26,29 @@
 
         <form method="POST" action="/l">
           {{ csrfField() }}
-          <textarea class="form-control" name="secret" placeholder="Enter your secret here..."></textarea>
-          <br/>
+          <textarea class="form-control" name="secret" placeholder="Enter your secret here...">{{ old('secret', '') }}</textarea>
+          <br>
+          <div class="captcha">
+            <img src="/captcha/{{ ts }}" />
+            <input type="text" name="captcha" placeholder="Solve the Captcha" required/>
+            <input type="hidden" name="ts" value="{{ ts }}" />
+          </div>
+          <br>
           <input type="hidden" name="tool" value="secrets" />
           <button type="submit" class="btn-submit" value="submit">Submit</button>
+
         </form>
-        @if(flashMessage('success'))
-          <p>Your one time link is: <strong>{{ flashMessage('success') }}</strong></p>
+        @endif
+        @if(flashMessage('error'))
+          <p><strong>{{ flashMessage('error') }}</strong></p>
         @endif
         <div class="my-5"></div>
+        <div class="footer mt-5">
+
         <p><small>Your secret message is encrypted and stored in memory on my server.<br />  Once your message is read it is erased from memory and gone forever.  <br />Don't believe me?  You should'nt.  Check the <strong><a href="https://github.com/enxoco/one-time-secret">source code</a></strong>.<br/>In addition I don't store or collect any personal or identifyable information.<br>I only keep a record of the number of times the service has been used.<br />Copyright 2020 <a href="https://liveinaterminal.com">Mike Conrad</a></small></p>
-    </div>
+        </div>
+      </div>
   </section>
+
 </body>
 </html>
