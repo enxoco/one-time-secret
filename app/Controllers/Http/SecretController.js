@@ -11,8 +11,11 @@ class SecretController {
         const { token, buffer } = await captcha()
         let hash = Encryption.encrypt(token)
         await Redis.set(ts, hash)
-        return response.send(buffer, 'tracker.gif')
+        return response.send(buffer)
 
+    }
+    async GetShortForm({ view }) {
+        return view.render('shortener', { ts })
     }
     async GetForm({ request, response, session, view }) {
         return view.render('welcome', { ts })

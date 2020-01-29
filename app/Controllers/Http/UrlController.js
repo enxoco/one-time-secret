@@ -2,11 +2,26 @@
 const Redis = use('Redis')
 const Hashids = require('hashids/cjs')
 const hashids = new Hashids("one-time-secret", 2, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890")
+const Encryption = use('Encryption')
+const captcha = require('trek-captcha')
+
+
 class UrlController {
+    
+
+
     async PostShort({ request, response, session }) {
         // Get message from form submission
-        const { short } = request.all()
+        const { short, captcha, ts } = request.all()
+        let hash = await Redis.get(ts)
+        let solution = Encryption.decrypt(hash)
 
+        if (captcha != solution) {
+            session.flash({ short: short})
+            session.flash({ error: 'Captcha does not match.  Please Try Again'})
+            return response.redirect('back')
+        } 
+        Redis.del(ts)
         // Get number of site hits from Redis store and use it as an id.
         const id = await Redis.get('hits')
 

@@ -2,44 +2,73 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Link Shortener</title>
+  <title>One Time Secret</title>
   {{ style('style') }}
-</head>
-<body class="bg-green">
-  <div class="my-5"></div>
-  <section>
-      @if(error)
-        <h1>{{ error }}</h1><br>
-      @else
-        <h1>Link Shortener</h1>
-      @endif
-      <br>
-      <p>Check out my other tool, a simple/free <a href="/l">Self destructing link generator</a></p>
-      <div class="my-5"></div>
-        @inlineSvg('undraw_share_link_qtxe')
-      <div class="my-5"></div>
 
-      <h2>Enter the url you want shortened</h2>
-      
-      <div class="subtitle">
+  <style>
+    input {
+      margin-left: 0px;
+      width: 97%;
+    }
+    body {
+      background-color: #34495e;
+      background-size: 1500px, 1500px;
+      background-position: center;
+    }
+    input {
+      border-radius: 0px;
+      color: black;
+      font-weight: 800;
+    }
+    </style>
+</head>
+<body style="background-image:url('undraw_share_link_qtxe.svg'); background-repeat: no-repeat;">
+  <section>
+    <div class="header">
+    <h1>Link Shortener</h1>
+    <br>
+    <p>Check out my other tool, a simple/free <a href="/l">Self destructing message generator</a></p>
+    </div>
+    @if(flashMessage('error'))
+    <h1 style="text-align:center;">{{ flashMessage('error') }}</h1>
+      @endif
+      @if(flashMessage('linkUrl'))
+        <h1 style="text-align:center;">Your one time link is: <br><strong>{{ flashMessage('linkUrl') }}</strong></h1>
+      @else
+
+    <div class="subtitle">
+      <h2>Enter the url you would like to have shortened</h2>
 
       <p>
-        This link will disappear after 24 hours.
+        We will generate a shortened link for you.  
       </p>
       <div class="my-5"></div>
-        @if(flashMessage('linkUrl'))
-      <p><strong>Your short link is: {{ flashMessage('linkUrl') }}<strong></p>
-      @endif
-      <form action="/s" method="POST">
-        {{ csrfField() }}
-        <input type="url" name="short" placeholder="Enter your url"/>
-        <div class="my-5"></div>  
-        <input type="hidden" name="tool" value="shortener" />
-        <button class="btn-submit" type="submit" value="submit">Submit</button>
-      </form>
-      <div class="my-5"></div>
-      <p><small>Your link is stored in memory on my server for 24 hours and then erased.<br> <strong>No</strong> personal information is collected or stored.  <br />Don't believe me?  You should'nt.  Check the <strong><a href="https://github.com/enxoco/one-time-secret">source code</a></strong>.<br>I only keep a record of the number of times the service has been used.<br>Copyright 2020 <a href="https://liveinaterminal.com">Mike Conrad</a></small></p>
-    </div>
+
+        <form method="POST" action="/s">
+          {{ csrfField() }}
+          <input type="url" name="short" placeholder="Super long and annoying URL" value="{{ old('short', '') }}" />
+          <br>
+          <div class="captcha">
+            <img src="/captcha/{{ ts }}" />
+            <input type="text" name="captcha" placeholder="Solve the Captcha" required/>
+            <input type="hidden" name="ts" value="{{ ts }}" />
+          </div>
+          <br>
+          <input type="hidden" name="tool" value="shortener" />
+          <button type="submit" class="btn-submit" value="submit">Submit</button>
+
+        </form>
+        @endif
+        @if(flashMessage('error'))
+          <p><strong>{{ flashMessage('error') }}</strong></p>
+        @endif
+        <div class="my-5"></div>
+        <div class="footer mt-5">
+
+        <p><small>Your secret message is encrypted and stored in memory on my server.<br />  Once your message is read it is erased from memory and gone forever.  <br />Don't believe me?  You should'nt.  Check the <strong><a href="https://github.com/enxoco/one-time-secret">source code</a></strong>.<br/>In addition I don't store or collect any personal or identifyable information.<br>I only keep a record of the number of times the service has been used.<br />Copyright 2020 <a href="https://liveinaterminal.com">Mike Conrad</a></small></p>
+        </div>
+      </div>
   </section>
+
 </body>
 </html>

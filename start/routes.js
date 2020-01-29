@@ -24,7 +24,7 @@ Route.get('/captcha/:ts', 'SecretController.GetCaptcha')
 // S for link shortener routes
 Route.get('/s/:id', 'UrlController.GetShort')
 Route.post('/s', 'UrlController.PostShort')
-Route.on('/s').render('shortener')
+Route.get('/s', 'SecretController.GetShortForm')
 
 // Wildcard route for everything else.
 Route.get('/', 'SecretController.GetForm')
