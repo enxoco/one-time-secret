@@ -20,6 +20,9 @@
       color: black;
       font-weight: 800;
     }
+    .mt-3 {
+      margin-top: .75rem;
+    }
     </style>
 </head>
 <body style="background-image:url('undraw_share_link_qtxe.svg'); background-repeat: no-repeat;">
@@ -50,12 +53,12 @@
           <br>
           <div class="captcha">
             <img src="/captcha/{{ ts }}" />
-            <input type="text" name="captcha" placeholder="Solve the Captcha" required/>
+            <input type="text" name="captcha" placeholder="Solve the Captcha" required style="border-left:15px solid #34495e;"/>
             <input type="hidden" name="ts" value="{{ ts }}" />
           </div>
           <br>
           <input type="hidden" name="tool" value="shortener" />
-          <button type="submit" class="btn-submit" value="submit">Submit</button>
+          <button type="submit" class="btn-submit mt-3" value="submit">Submit</button>
 
         </form>
         @endif
@@ -65,7 +68,7 @@
         <div class="my-5"></div>
         <div class="footer mt-5">
 
-        <p><small>Your secret message is encrypted and stored in memory on my server.<br />  Once your message is read it is erased from memory and gone forever.  <br />Don't believe me?  You should'nt.  Check the <strong><a href="https://github.com/enxoco/one-time-secret">source code</a></strong>.<br/>In addition I don't store or collect any personal or identifyable information.<br>I only keep a record of the number of times the service has been used.<br />Copyright 2020 <a href="https://liveinaterminal.com">Mike Conrad</a></small></p>
+        <p><small>Check the <strong><a href="https://github.com/enxoco/one-time-secret">source code</a></strong>.<br/>I don't store or collect any personal or identifyable information.<br>I only keep a record of the number of times the service has been used.<br />Copyright 2020 <a href="https://liveinaterminal.com">Mike Conrad</a></small></p>
         </div>
       </div>
   </section>
