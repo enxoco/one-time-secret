@@ -26,6 +26,7 @@ class SecretController {
         let hash = await Redis.get(ts)
         let solution = Encryption.decrypt(hash)
 
+
         if (captcha != solution) {
             session.flash({ secret: secret})
             session.flash({ error: 'Captcha does not match.  Please Try Again'})
@@ -45,7 +46,7 @@ class SecretController {
         const { secret } = request.all()
         const id = await Redis.get('hits')
         const urlStr = hashids.encode(Number(id))
-        const secMesg = Encryption.encrypt(secret) + '_api'
+        const secMesg = Encryption.encrypt(secret)
         await Redis.set(urlStr, secMesg)
         return response.json({'url': urlStr})
     }
@@ -58,12 +59,8 @@ class SecretController {
         await Redis.del(id)
  
         if (mesg != null){
-            if (mesg.includes('_api')){// Deal with a request from our browser extension
-                mesg.replace('_api', '')
-                mesg = Encryption.decrypt(mesg)
-                return view.render('secret', {mesg, valid: 1})
-            }
-    
+
+            mesg = Encryption.decrypt(mesg)
             return view.render('secret', {mesg, valid: 1})
         } else {
             return view.render('secret', { valid: 0})
