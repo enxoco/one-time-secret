@@ -46,18 +46,23 @@ class SecretController {
 
         const id = await Redis.get('hits')
         const urlStr = hashids.encode(Number(id))
-        const secMesg = Encryption.encrypt(secret)
+        const secMesg = Encryption.encrypt(secret) + '_api'
         await Redis.set(urlStr, secMesg)
         return `${host}/l/${urlStr}`
     }
 
-    async GetSecret({ view, params }) {
+    async GetSecret({ view, params, response }) {
         const id = params.id
         // Get our secret message
         let mesg = await Redis.get(id)
         // Immediately delete our secret  message
         await Redis.del(id)
-        mesg = Encryption.decrypt(mesg)
+        if (mesg.includes('_api')){// Deal with a request from our browser extension
+            mesg.replace('_api', '')
+            mesg = Encryption.decrypt(mesg)
+            return response.send(mesg)
+        }
+
         if (mesg != null){
             return view.render('secret', {mesg, valid: 1})
         } else {
