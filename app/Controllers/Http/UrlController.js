@@ -16,11 +16,14 @@ class UrlController {
         let hash = await Redis.get(ts)
         let solution = Encryption.decrypt(hash)
 
-        if (captcha != solution) {
-            session.flash({ short: short})
-            session.flash({ error: 'Captcha does not match.  Please Try Again'})
-            return response.redirect('back')
-        } 
+        if (captcha && ts) {
+            if (captcha != solution) {
+                session.flash({ short: short})
+                session.flash({ error: 'Captcha does not match.  Please Try Again'})
+                return response.redirect('back')
+            } 
+        }
+
         Redis.del(ts)
         // Get number of site hits from Redis store and use it as an id.
         const id = await Redis.get('hits')
@@ -34,6 +37,9 @@ class UrlController {
         // Build a unique url with our unique url
         session.flash({ linkUrl: `${request.headers().origin}/s/${urlStr}` })
 
+        if (!captcha && !ts) {
+            return response.json({'url': urlStr})
+        }
         // Refresh the page so we can show our flash message.
         return response.redirect('back')
     }

@@ -42,13 +42,12 @@ class SecretController {
 
     async PostSecretApi({ request, response, session }) {
         const host = request.headers().origin
-        const secret = request.all()
-
+        const { secret } = request.all()
         const id = await Redis.get('hits')
         const urlStr = hashids.encode(Number(id))
         const secMesg = Encryption.encrypt(secret) + '_api'
         await Redis.set(urlStr, secMesg)
-        return `${host}/l/${urlStr}`
+        return response.json({'url': urlStr})
     }
 
     async GetSecret({ view, params, response }) {
@@ -57,13 +56,14 @@ class SecretController {
         let mesg = await Redis.get(id)
         // Immediately delete our secret  message
         await Redis.del(id)
-        if (mesg.includes('_api')){// Deal with a request from our browser extension
-            mesg.replace('_api', '')
-            mesg = Encryption.decrypt(mesg)
-            return response.send(mesg)
-        }
-
+ 
         if (mesg != null){
+            if (mesg.includes('_api')){// Deal with a request from our browser extension
+                mesg.replace('_api', '')
+                mesg = Encryption.decrypt(mesg)
+                return view.render('secret', {mesg, valid: 1})
+            }
+    
             return view.render('secret', {mesg, valid: 1})
         } else {
             return view.render('secret', { valid: 0})

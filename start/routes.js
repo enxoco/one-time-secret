@@ -29,5 +29,5 @@ Route.get('/s', 'SecretController.GetShortForm')
 // Wildcard route for everything else.
 Route.get('/', 'SecretController.GetForm')
 Route.get('/:url', 'SecretController.GetForm')
-Route.post('/api/os', 'SecretController.PostSecretApi')
-Route.get('/api/os', 'SecretController.PostSecretApi')
+Route.post('/api/snaps/', 'SecretController.PostSecretApi')
+Route.post('/api/shorts', 'UrlController.PostShort')
