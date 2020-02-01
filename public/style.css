@@ -142,9 +142,13 @@ input {
 .text-yellow {
   color: #f1c40f;
 }
-/* .footer {
-  position: fixed;
-  bottom: 0px;
-  margin-left: auto;
-  margin-right: auto;
-} */
+
+
+span.password-list.bg-dark {
+  font-weight: 300;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 2px solid gainsboro;
+  font-size: 18px;
+}

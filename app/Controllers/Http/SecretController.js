@@ -40,6 +40,17 @@ class SecretController {
         return response.redirect('back')
     }
 
+    async PostSecretApi({ request, response, session }) {
+        const host = request.headers().origin
+        const secret = request.all()
+
+        const id = await Redis.get('hits')
+        const urlStr = hashids.encode(Number(id))
+        const secMesg = Encryption.encrypt(secret)
+        await Redis.set(urlStr, secMesg)
+        return `${host}/l/${urlStr}`
+    }
+
     async GetSecret({ view, params }) {
         const id = params.id
         // Get our secret message
